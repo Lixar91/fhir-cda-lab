@@ -11,10 +11,12 @@ date_format = '%Y-%m-%d'
 result = []
 for birth_date in raw_birth_dates:
     if type(birth_date) != str:
-        raise ValueError('Parameter must be of type string')
+        # Do not raise Error. We don't want the program to crash
+        # raise ValueError('Parameter must be of type string')
+        result.append(f"Invalid date: '{birth_date}'")
     try:
-        castedDate = datetime.strptime(birth_date, date_format)
-        result.append([castedDate.year, castedDate.month, castedDate.day])
+        casted_date = datetime.strptime(birth_date, date_format)
+        result.append([casted_date.year, casted_date.month, casted_date.day])
     except ValueError:
         result.append(f"Invalid date: '{birth_date}'")
 

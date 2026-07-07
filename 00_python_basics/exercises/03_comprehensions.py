@@ -17,5 +17,10 @@ print(elder_patients)
 name_dictionary = {}
 for patient in patients:
     name_dictionary[patient["name"]] = patient["age"]
-# name_dictionary = {name:age for name, age in patients}
 print(name_dictionary)
+
+# This approach fails because iterating a list of dicts yields DICTS, not (key, value) tuples
+# The unpacking syntax (for name, age in ...) would be valid if you were iterating over pairs, e.g. some_dict.items().
+# name_dictionary = {name:age for name, age in patients}
+# Better aproach: iterate the dicts and access their keys
+# name_dictionary = {p["name"]: p["age"] for p in patients}
