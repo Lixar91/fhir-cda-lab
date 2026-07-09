@@ -1,0 +1,21 @@
+[
+  {
+    "given_name": "Nick",
+    "family_name": "Doe",
+    "birth_date": "1995-03-12",
+    "conditions": [
+      "hypertension"
+    ]
+  },
+  {
+    "given_name": "Ana",
+    "family_name": "Smith",
+    "birth_date": "not-a-date",
+    "conditions": []
+  },
+  {
+    "given_name": "Luis",
+    "family_name": "Garcia",
+    "birth_date": "1958-11-01"
+  }
+]
