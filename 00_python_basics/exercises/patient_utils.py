@@ -1,8 +1,8 @@
-# Goal: refresh functions, parameters, return values.
-# Build a tiny helper you'll actually reuse later.
+# Exercise: patient_utils.py
+#   Move build_full_name, count_conditions and implement
+#   parse_birth_date(value: str) -> date | None   (returns None if invalid)
 
-# Reviewer's note: It's better to use `isinstance` rather than `type`.
-# Check https://switowski.com/blog/type-vs-isinstance for more info
+from datetime import date, datetime
 
 def build_full_name(given: str, family: str) -> str:
     """
@@ -14,6 +14,7 @@ def build_full_name(given: str, family: str) -> str:
         raise TypeError("Parameters must be of type str")
     return f"{family.upper()}, {given.title()}"
 
+
 def count_conditions(patient: dict) -> int:
     """
     :param patient: Dictionary of patient conditions (patient dictionary from exercise 01)
@@ -23,11 +24,15 @@ def count_conditions(patient: dict) -> int:
         raise TypeError('Parameters must be of type dict')
     return len(patient.get("conditions", []))
 
-patient_test = {
-    "given_name": "Nick",
-    "family_name": "Doe",
-    "birth_date": "1995-03-12",
-    "conditions": ["hypertension", "type-2-diabetes"],
-}
-print(count_conditions(patient_test))
-print(build_full_name("hola", "mundo"))
+
+def parse_birth_date(value: str) -> date | None:
+    """
+    :param value: String of the birthdate. Expected format is YYYY-MM-DD
+    :return: Date time object of birthdate informed OR None if format is invalid
+    """
+    if not isinstance(value, str):
+        raise TypeError("Parameter must be of type str")
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
