@@ -1,6 +1,7 @@
 # Exercise: patient_utils.py
 #   Move build_full_name, count_conditions and implement
 #   parse_birth_date(value: str) -> date | None   (returns None if invalid)
+# Objective: reuse functions in the exercise 07_report
 
 from datetime import date, datetime
 
