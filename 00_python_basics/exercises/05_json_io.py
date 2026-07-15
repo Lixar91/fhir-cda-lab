@@ -20,7 +20,7 @@ with open('files/patients.json') as json_file:
 #    -> reuse the .get() pattern from the review; patient 3 must print 0, not crash
 
 for patient in patients:
-    print(f"{patient['family_name'].upper()}, {patient['given_name'].title()} - {len(patient.get('conditions', []))}")
+    print(f"{patient['family_name'].upper()}, {patient['given_name'].title()} - {len(patient.get('conditions', []))} condition(s)")
 
 # 3. Write a new file "valid_patients.json" containing ONLY patients
 #    whose birth_date parses correctly (reuse your strptime logic)
@@ -31,7 +31,7 @@ valid_patients = []
 
 for patient in patients:
     try:
-        _ = datetime.strptime(patient.get('birth_date'), '%Y-%m-%d')
+        _ = datetime.strptime(patient.get('birth_date', ''), '%Y-%m-%d')
         valid_patients.append(patient)
     except ValueError:
         continue

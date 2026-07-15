@@ -5,6 +5,7 @@
 
 from datetime import date, datetime
 
+
 def build_full_name(given: str, family: str) -> str:
     """
     :param given: Given name of the patient
@@ -37,3 +38,21 @@ def parse_birth_date(value: str) -> date | None:
         return datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError:
         return None
+
+
+def build_full_name_from_patient(patient: dict) -> str:
+    """
+    :param patient: Patient dictionary
+    :return: 'FAMILY, Given' format used in many clinical systems.
+    """
+    if not isinstance(patient, dict):
+        raise TypeError("Parameters must be of type str")
+    try:
+        name = patient['given_name']
+    except KeyError:
+        name = "Given name is not informed"
+    try:
+        surname = patient['family_name']
+    except KeyError:
+        surname = "Family name is not informed"
+    return build_full_name(name, surname)
