@@ -1,0 +1,18 @@
+<patients>
+  <patient id="P001">
+    <name given="Nick" family="Doe"/>
+    <birthDate value="1995-03-12"/>
+    <conditions>
+      <condition code="38341003" display="Hypertension"/>
+    </conditions>
+  </patient>
+  <patient id="P002">
+    <name given="Ana" family="Smith"/>
+    <birthDate value="not-a-date"/>
+    <conditions/>
+  </patient>
+  <patient id="P003">
+    <name given="Luis" family="Garcia"/>
+    <birthDate value="1958-11-01"/>
+  </patient>
+</patients>
