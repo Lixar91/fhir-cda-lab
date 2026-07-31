@@ -22,7 +22,7 @@ def extract_patients(xml_path: str) -> list[dict]:
     :param xml_path: File path of XML file.
     :return: List of dictionaries of the patients.
     :raises FileNotFoundError: File does not exist or cannot be opened.
-    :raises etree.XMLSyntaxError: XML syntax error is detected while parsing.
+    :raises ValueError: XML syntax error is detected while parsing.
     """
     if not isinstance(xml_path, str):
         raise TypeError('Parameter must be of type str')
@@ -32,8 +32,9 @@ def extract_patients(xml_path: str) -> list[dict]:
         result = []
         for patient in xml_root.findall("patient"):
             # Extract name of the patient
-            p_given = patient.find("name").get("given") if patient.find("name") is not None else None
-            p_family = patient.find("name").get("family") if patient.find("name") is not None else None
+            name_el = patient.find("name")
+            p_given = name_el.get("given") if name_el is not None else None
+            p_family = name_el.get("family") if name_el is not None else None
 
             # Birthdate of the patient
             p_birthdate = patient.find("birthDate").get("value") if patient.find("birthDate") is not None else None
@@ -54,10 +55,10 @@ def extract_patients(xml_path: str) -> list[dict]:
             result.append({k: v for k, v in json_patient.items() if v is not None})
         return result
 
-    except FileExistsError:
-        raise FileNotFoundError('XML file does not exist or cannot be opened.')
-    except etree.XMLSyntaxError:
-        raise ValueError('XML syntax error')
+    except OSError as e:
+        raise FileNotFoundError(f'XML file does not exist or cannot be opened: {xml_path}') from e
+    except etree.XMLSyntaxError as e:
+        raise ValueError(f'Invalid XML syntax in {xml_path}') from e
 
 ################################
 
@@ -111,8 +112,8 @@ for patient in patients:
 #             'Patient with the most conditions'] = f"{build_full_name_from_patient(patient)}, which has {condition_length} condition(s)."
 # The Pythonic way. It has C performance!
 max_condition_patient = max(patients, key=count_conditions, default=None)
-report[
-    'Patient with the most conditions'] = f"{build_full_name(max_condition_patient.get('given_name', 'Given name is not informed'), max_condition_patient.get('family_name', 'Family name is not informed'))}, which has {count_conditions(max_condition_patient)} condition(s)."
+if max_condition_patient is not None:
+    report['Patient with the most conditions'] = f"{build_full_name_from_patient(max_condition_patient)}, which has {count_conditions(max_condition_patient)} condition(s)."
 
 # Printing the report
 print(json.dumps(report, indent=4))

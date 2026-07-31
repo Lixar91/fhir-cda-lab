@@ -46,7 +46,7 @@ def build_full_name_from_patient(patient: dict) -> str:
     :return: 'FAMILY, Given' format used in many clinical systems.
     """
     if not isinstance(patient, dict):
-        raise TypeError("Parameters must be of type str")
+        raise TypeError("Parameters must be of type dict")
     try:
         name = patient['given_name']
     except KeyError:

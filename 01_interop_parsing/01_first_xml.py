@@ -22,7 +22,7 @@ root = patients.getroot()
 # Use ".//child" to search that element at any depth of the tree
 # element.findall("child") returns all children elements with matching name. Always returns a list of size 0 or greater.
 for patient in root.findall("patient"):
-    print(f"{patient.tag}, {patient.get("id")}, {patient.find('name').get("family")}")
+    print(f"{patient.tag}, {patient.get('id')}, {patient.find('name').get('family')}")
     # Accessing to conditions to see how I would handle the None case
     #conditions = patient.find("conditions")
     #print(f"{len(conditions if conditions is not None else [])} conditions")
