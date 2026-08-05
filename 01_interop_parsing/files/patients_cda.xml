@@ -1,0 +1,13 @@
+<clinicalDocument xmlns="urn:hl7-org:v3">
+    <recordTarget>
+        <patientRole id="P001">
+            <patient>
+                <name>
+                    <given>Nick</given>
+                    <family>Doe</family>
+                </name>
+                <birthTime value="1995-03-12"/>
+            </patient>
+        </patientRole>
+    </recordTarget>
+</clinicalDocument>
